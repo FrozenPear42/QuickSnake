@@ -23,14 +23,19 @@ public class Game {
     private int mAppleX;
     private int mAppleY;
 
+    private int mWidth;
+    private int mHeight;
+
     Game() {
+        mWidth = 30;
+        mHeight = 30;
         mElongate = false;
         mDirection = Snake.Direction.UP;
-        mBoard = new Board(30, 30);
+        mBoard = new Board(mWidth, mHeight);
         VBox box = new VBox(mBoard);
         mScene = new Scene(box);
 
-        mSnake = new Snake(10, 10, 4);
+        mSnake = new Snake(mWidth/2, mHeight/2, 4);
         generateApple();
 
         mLogicTimer = new Timer();
@@ -39,8 +44,8 @@ public class Game {
             public void run() {
                 boolean collision = mSnake.step(mDirection, mElongate);
                 if (collision ||
-                        mSnake.getX() >= 30 || mSnake.getX() < 0 ||
-                        mSnake.getY() >= 30 || mSnake.getY() < 0) {
+                        mSnake.getX() >= mWidth || mSnake.getX() < 0 ||
+                        mSnake.getY() >= mHeight || mSnake.getY() < 0) {
                     mLogicTimer.cancel();
                     Platform.runLater(()-> {
                         Alert a = new Alert(Alert.AlertType.WARNING);
@@ -90,8 +95,8 @@ public class Game {
 
     private void generateApple() {
         Random rnd = new Random();
-        mAppleX = rnd.nextInt(30);
-        mAppleY = rnd.nextInt(30);
+        mAppleX = rnd.nextInt(mWidth);
+        mAppleY = rnd.nextInt(mHeight);
     }
 
     public Scene getScene() {

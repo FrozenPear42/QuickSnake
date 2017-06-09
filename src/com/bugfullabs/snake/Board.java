@@ -17,16 +17,23 @@ public class Board extends Canvas {
 
     public void drawSnake(Snake snake) {
         GraphicsContext ctx = getGraphicsContext2D();
-        ctx.clearRect(0, 0,mWidth * GRID_SIZE, mHeight * GRID_SIZE);
+        ctx.clearRect(0, 0, mWidth * GRID_SIZE, mHeight * GRID_SIZE);
+        ctx.setStroke(Color.WHITE);
+        ctx.setLineWidth(1);
         snake.getSegments().forEach(segment -> {
             ctx.setFill(Color.RED);
             ctx.fillRect(GRID_SIZE * segment.x, GRID_SIZE * segment.y, GRID_SIZE, GRID_SIZE);
+            ctx.strokeRect(GRID_SIZE * segment.x, GRID_SIZE * segment.y, GRID_SIZE, GRID_SIZE);
+
         });
     }
 
     public void drawApple(int x, int y) {
         GraphicsContext ctx = getGraphicsContext2D();
-            ctx.setFill(Color.GREEN);
-            ctx.fillRect(GRID_SIZE * x, GRID_SIZE * y, GRID_SIZE, GRID_SIZE);
+        ctx.setFill(Color.GREEN);
+        ctx.setStroke(Color.WHITE);
+        ctx.setLineWidth(1);
+        ctx.fillRect(GRID_SIZE * x, GRID_SIZE * y, GRID_SIZE, GRID_SIZE);
+        ctx.strokeRect(GRID_SIZE * x, GRID_SIZE * y, GRID_SIZE, GRID_SIZE);
     }
 }

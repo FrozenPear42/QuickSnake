@@ -38,12 +38,12 @@ public class Snake {
         mSegments.getFirst().x = mX;
         mSegments.getFirst().y = mY;
 
-        return mSegments.subList(1, mSegments.size()).stream().filter(s -> s.x == mX && s.y == mY).findAny().isPresent();
+        return mSegments.subList(1, mSegments.size()).stream().anyMatch(s -> s.x == mX && s.y == mY);
 
     }
 
     public boolean isCollision(int x, int y) {
-        return mSegments.stream().filter(s -> s.x == x && s.y == y).findAny().isPresent();
+        return mSegments.stream().anyMatch(s -> s.x == x && s.y == y);
     }
 
     public List<SnakeSegment> getSegments() {
