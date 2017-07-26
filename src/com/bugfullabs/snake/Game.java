@@ -35,7 +35,7 @@ public class Game {
         VBox box = new VBox(mBoard);
         mScene = new Scene(box);
 
-        mSnake = new Snake(mWidth/2, mHeight/2, 4);
+        mSnake = new Snake(mWidth / 2, mHeight / 2, 4);
         generateApple();
 
         mLogicTimer = new Timer();
@@ -47,7 +47,7 @@ public class Game {
                         mSnake.getX() >= mWidth || mSnake.getX() < 0 ||
                         mSnake.getY() >= mHeight || mSnake.getY() < 0) {
                     mLogicTimer.cancel();
-                    Platform.runLater(()-> {
+                    Platform.runLater(() -> {
                         Alert a = new Alert(Alert.AlertType.WARNING);
                         a.setHeaderText("UPS");
                         a.setContentText("GAME OVER");
@@ -62,7 +62,7 @@ public class Game {
                     generateApple();
                 }
             }
-        }, 0, 200);
+        }, 0, 100);
 
         mAnimationTimer = new AnimationTimer() {
             @Override
@@ -77,16 +77,20 @@ public class Game {
         mScene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case UP:
-                    mDirection = Snake.Direction.UP;
+                    if (mDirection != Snake.Direction.DOWN)
+                        mDirection = Snake.Direction.UP;
                     break;
                 case DOWN:
-                    mDirection = Snake.Direction.DOWN;
+                    if (mDirection != Snake.Direction.UP)
+                        mDirection = Snake.Direction.DOWN;
                     break;
                 case LEFT:
-                    mDirection = Snake.Direction.LEFT;
+                    if (mDirection != Snake.Direction.RIGHT)
+                        mDirection = Snake.Direction.LEFT;
                     break;
                 case RIGHT:
-                    mDirection = Snake.Direction.RIGHT;
+                    if (mDirection != Snake.Direction.LEFT)
+                        mDirection = Snake.Direction.RIGHT;
                     break;
 
             }
